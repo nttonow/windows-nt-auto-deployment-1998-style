@@ -44,6 +44,8 @@ Context
 
 These scripts come from real deployment work carried out in business environments during the late 1990s and early 2000s.
 
+If you’re trying to recreate this, I’d strongly recommend watching the video, a lot of the “why” behind this approach isn’t obvious just from the scripts alone.
+
 Related Video
 
 https://youtu.be/OskAMmDaNWI
