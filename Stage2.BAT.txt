@@ -1,0 +1,25 @@
+REM @ECHO OFF
+REM --- Check marker file ---
+IF EXIST C:\JOIN\STAGE2.MRK GOTO PROCEED
+
+REM --- First run, pre-reboot. Create marker and exit ---
+ECHO marker > C:\JOIN\STAGE2.MRK
+GOTO END
+
+:PROCEED
+REM ============================================================
+REM STAGE2.BAT - Domain Join Script
+REM Runs locally on second boot after Ghost deploy
+REM ============================================================
+REM --- Join the domain ---
+C:\JOIN\WAIT 20 
+C:\JOIN\NETDOM /Domain:NTN /User:Administrator /Password:8788 member %COMPUTERNAME% /JOINDOMAIN
+C:\JOIN\WAIT 5
+REM --- Remove auto-logon ---
+REGEDIT /S C:\JOIN\REMOVEAUTOLOGON.REG
+
+REM --- Reboot ---
+C:\JOIN\SHUTDOWN /L /R /T:10 /Y /C
+DEL "C:\WINNT\Profiles\Administrator\Start Menu\Programs\Startup\STAGE2.BAT"
+
+:END
